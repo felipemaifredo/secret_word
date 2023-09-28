@@ -75,7 +75,6 @@ function App() {
     setGuessedLetters([]);
     setWrongLetters([]);
     setGuesses(3)
-    setScore(0)
   }
 
   useEffect(() => {
