@@ -3,9 +3,8 @@ import StartScreen from './components/startscreen';
 import Game from './components/Game';
 import GameOver from './components/GameOver';
 
-import { useCallback, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { wordsList } from './data/words';
-import { clear } from '@testing-library/user-event/dist/clear';
 
 function App() {
   const stages = [
@@ -13,10 +12,10 @@ function App() {
     {id: 2, name: 'game'},
     {id: 3, name: 'end'},
   ]
+
   const [words] = useState(wordsList)
   const [ gameStage, setGameStage ] = useState(stages[0].name);
 
-  const [ pickedWord, setPickedWord ] = useState('');
   const [ pickeCategory, setPickeCategory ] = useState('');
   const [ pickeLetters, setPickeLetters ] = useState([]);
 
@@ -34,6 +33,7 @@ function App() {
 
   //Começa o jogo
   const startGame = () => {
+
     clearLetterStates();
     //Pick word and pick category
     const { word, category } = pickWordandCategory();
@@ -43,11 +43,9 @@ function App() {
     wordLetters = wordLetters.map((l) => l.toLowerCase())
 
     //Fill States
-
-    setPickedWord(word)
     setPickeCategory(category)
     setPickeLetters(wordLetters)
-    
+
     setGameStage(stages[1].name)
   }
 
@@ -69,7 +67,6 @@ function App() {
       setWrongLetters((actualWrongLetters) => [
         ...actualWrongLetters, normalizedLetter
       ]);
-
       setGuesses((actualGuesses) => actualGuesses - 1);
     }
   }
@@ -89,12 +86,9 @@ function App() {
 
   useEffect(() => {
     const uniqueLetter = [...new Set(pickeLetters)]
-    
     if (guessedLetters.length === uniqueLetter.length) {
       setScore(actualScore => actualScore += 100);
-      startGame();
     }
-
   }, [guessedLetters])
 
   //Retry Game
