@@ -67,6 +67,7 @@ function App() {
       setWrongLetters((actualWrongLetters) => [
         ...actualWrongLetters, normalizedLetter
       ]);
+
       setGuesses((actualGuesses) => actualGuesses - 1);
     }
   }
@@ -86,8 +87,10 @@ function App() {
 
   useEffect(() => {
     const uniqueLetter = [...new Set(pickeLetters)]
+
     if (guessedLetters.length === uniqueLetter.length) {
       setScore(actualScore => actualScore += 100);
+      startGame();
     }
   }, [guessedLetters])
 
