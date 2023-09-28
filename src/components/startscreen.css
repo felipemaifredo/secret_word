@@ -1,0 +1,23 @@
+.StartScreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.StartScreen h1 {
+    color: white;
+    font-size: 5rem;
+}
+
+.StartScreen p {
+    color: white;
+    font-size: 1.5rem;
+}
+
+.StartScreen button {
+    padding: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
