@@ -14,7 +14,7 @@ const Game = ({ verifyLetter, pickeCategory, pickeLetters, guessedLetters, wrong
 
     return (
         <div className="Game">
-            <p>Pontuação: <span>{score - 100}</span></p>
+            <p>Pontuação: <span>{score}</span></p>
             <h1>Adivinhe a Palavra: </h1>
             <h3>Dica sobre a palavra: <span className='dica'>{pickeCategory}</span></h3>
             <p>Você ainda tem <span className='chances'>{guesses}</span> tentativas</p>

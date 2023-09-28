@@ -3,16 +3,16 @@ import StartScreen from './components/startscreen';
 import Game from './components/Game';
 import GameOver from './components/GameOver';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { wordsList } from './data/words';
 
-function App() {
-  const stages = [
-    {id: 1, name: 'start'},
-    {id: 2, name: 'game'},
-    {id: 3, name: 'end'},
-  ]
+const stages = [
+  {id: 1, name: 'start'},
+  {id: 2, name: 'game'},
+  {id: 3, name: 'end'},
+]
 
+function App() {
   const [words] = useState(wordsList)
   const [ gameStage, setGameStage ] = useState(stages[0].name);
 
@@ -24,16 +24,15 @@ function App() {
   const [ guesses, setGuesses ] = useState(3);
   const [ score, setScore ] = useState(0);
 
-  const pickWordandCategory = () => {
+  const pickWordandCategory = useCallback(() => {
     const categories = Object.keys(words)
     const category = categories[Math.floor(Math.random() * Object.keys(categories).length)];
     const word = words[category][Math.floor(Math.random() * words[category].length)]
     return { category, word };
-  }
+  }, [words])
 
   //Começa o jogo
-  const startGame = () => {
-
+  const startGame = useCallback(() => {
     clearLetterStates();
     //Pick word and pick category
     const { word, category } = pickWordandCategory();
@@ -47,7 +46,7 @@ function App() {
     setPickeLetters(wordLetters)
 
     setGameStage(stages[1].name)
-  }
+  }, [pickWordandCategory])
 
   //Process Letter
   const verifyLetter = (letter) => {
@@ -76,6 +75,7 @@ function App() {
     setGuessedLetters([]);
     setWrongLetters([]);
     setGuesses(3)
+    setScore(0)
   }
 
   useEffect(() => {
@@ -92,7 +92,7 @@ function App() {
       setScore(actualScore => actualScore += 100);
       startGame();
     }
-  }, [guessedLetters])
+  }, [guessedLetters, pickeLetters, startGame])
 
   //Retry Game
   const retryGame = () => {
